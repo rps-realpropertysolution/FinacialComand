@@ -16,9 +16,13 @@ Em **Settings → Environment Variables**, adicione (Production + Preview):
 
 | Nome | Valor |
 |---|---|
-| `VITE_SUPABASE_URL` | `https://nnvytoyhcmpwhxhbolet.supabase.co` |
+| `VITE_SUPABASE_URL` | `https://iwvmzlryeyxwuxqafytb.supabase.co` |
 | `VITE_SUPABASE_PUBLISHABLE_KEY` | (a anon key do seu `.env` local) |
-| `VITE_SUPABASE_PROJECT_ID` | `nnvytoyhcmpwhxhbolet` |
+| `VITE_SUPABASE_PROJECT_ID` | `iwvmzlryeyxwuxqafytb` |
+
+> Backend Supabase já provisionado (migrations + seed aplicados, login validado).
+> Os 2 usuários do seed já existem: `lucas.fernandes@rpsglobal.com.br` e
+> `bruno.aleixo@rpsglobal.com.br`.
 
 > A anon key está no seu `.env` local (não foi versionada). É pública por design
 > (vai no bundle do front, protegida por RLS), então pode colá-la na Vercel sem problema.
