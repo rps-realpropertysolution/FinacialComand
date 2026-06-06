@@ -28,3 +28,6 @@ supabase/seed.sql
 *.njsproj
 *.sln
 *.sw?
+
+# Supabase CLI temp
+supabase/.temp
