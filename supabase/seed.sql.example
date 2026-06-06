@@ -1,0 +1,61 @@
+-- ============================================================================
+-- EXEMPLO de seed de usuários (RPS Financial Command)
+-- Copie para `supabase/seed.sql`, troque as SENHAS e rode após as migrations.
+-- O arquivo real (seed.sql) NÃO é versionado (está no .gitignore).
+-- Modelo multi-tenant: cria a empresa "RPS" e os profiles (role é coluna).
+--   lucas.fernandes@rpsglobal.com.br  -> diretor
+--   bruno.aleixo@rpsglobal.com.br     -> gerente
+-- ============================================================================
+
+create extension if not exists pgcrypto with schema extensions;
+
+insert into public.empresas (id, nome, cnpj)
+values ('33333333-3333-3333-3333-333333333333', 'RPS', null)
+on conflict (id) do nothing;
+
+do $$
+declare v_id uuid := '11111111-1111-1111-1111-111111111111';
+        v_email text := 'lucas.fernandes@rpsglobal.com.br';
+begin
+  if not exists (select 1 from auth.users where email = v_email) then
+    insert into auth.users (
+      instance_id, id, aud, role, email, encrypted_password,
+      email_confirmed_at, last_sign_in_at, raw_app_meta_data, raw_user_meta_data,
+      created_at, updated_at, confirmation_token, email_change, email_change_token_new, recovery_token
+    ) values (
+      '00000000-0000-0000-0000-000000000000', v_id, 'authenticated', 'authenticated',
+      v_email, crypt('DEFINA_A_SENHA_DO_LUCAS', gen_salt('bf')), now(), now(),
+      '{"provider":"email","providers":["email"]}',
+      '{"full_name":"Lucas Fernandes","nome":"Lucas Fernandes"}',
+      now(), now(), '', '', '', ''
+    );
+    insert into auth.identities (id, provider_id, user_id, identity_data, provider, last_sign_in_at, created_at, updated_at)
+    values (gen_random_uuid(), v_id, v_id, jsonb_build_object('sub', v_id::text, 'email', v_email), 'email', now(), now(), now());
+  end if;
+end $$;
+
+do $$
+declare v_id uuid := '22222222-2222-2222-2222-222222222222';
+        v_email text := 'bruno.aleixo@rpsglobal.com.br';
+begin
+  if not exists (select 1 from auth.users where email = v_email) then
+    insert into auth.users (
+      instance_id, id, aud, role, email, encrypted_password,
+      email_confirmed_at, last_sign_in_at, raw_app_meta_data, raw_user_meta_data,
+      created_at, updated_at, confirmation_token, email_change, email_change_token_new, recovery_token
+    ) values (
+      '00000000-0000-0000-0000-000000000000', v_id, 'authenticated', 'authenticated',
+      v_email, crypt('DEFINA_A_SENHA_DO_BRUNO', gen_salt('bf')), now(), now(),
+      '{"provider":"email","providers":["email"]}',
+      '{"full_name":"Bruno Aleixo","nome":"Bruno Aleixo"}',
+      now(), now(), '', '', '', ''
+    );
+    insert into auth.identities (id, provider_id, user_id, identity_data, provider, last_sign_in_at, created_at, updated_at)
+    values (gen_random_uuid(), v_id, v_id, jsonb_build_object('sub', v_id::text, 'email', v_email), 'email', now(), now(), now());
+  end if;
+end $$;
+
+insert into public.profiles (id, empresa_id, nome, email, role) values
+  ('11111111-1111-1111-1111-111111111111', '33333333-3333-3333-3333-333333333333', 'Lucas Fernandes', 'lucas.fernandes@rpsglobal.com.br', 'diretor'),
+  ('22222222-2222-2222-2222-222222222222', '33333333-3333-3333-3333-333333333333', 'Bruno Aleixo',   'bruno.aleixo@rpsglobal.com.br',  'gerente')
+on conflict (id) do update set empresa_id = excluded.empresa_id, nome = excluded.nome, role = excluded.role;
