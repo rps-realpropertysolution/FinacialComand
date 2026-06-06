@@ -6,7 +6,7 @@ export interface BankTx {
   valor: number; // positivo = crédito, negativo = débito
 }
 
-const parseBrDate = (s: string): string | null => {
+export const parseBrDate = (s: string): string | null => {
   // dd/mm/yyyy or dd/mm/yy
   const m = s.match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})/);
   if (!m) return null;
@@ -15,12 +15,12 @@ const parseBrDate = (s: string): string | null => {
   return `${y}-${mo.padStart(2, "0")}-${d.padStart(2, "0")}`;
 };
 
-const parseIsoDate = (s: string): string | null => {
+export const parseIsoDate = (s: string): string | null => {
   const m = s.match(/(\d{4})-(\d{2})-(\d{2})/);
   return m ? `${m[1]}-${m[2]}-${m[3]}` : null;
 };
 
-const parseValor = (raw: string | number): number | null => {
+export const parseValor = (raw: string | number): number | null => {
   if (typeof raw === "number") return raw;
   if (!raw) return null;
   let s = String(raw).trim().replace(/\s/g, "");
@@ -70,6 +70,10 @@ export async function parseXLSX(file: File): Promise<BankTx[]> {
 
 export async function parseOFX(file: File): Promise<BankTx[]> {
   const text = await file.text();
+  return parseOFXText(text);
+}
+
+export function parseOFXText(text: string): BankTx[] {
   const txs: BankTx[] = [];
   const re = /<STMTTRN>([\s\S]*?)<\/STMTTRN>/gi;
   let m: RegExpExecArray | null;
