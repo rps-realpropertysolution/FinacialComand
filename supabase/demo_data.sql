@@ -70,8 +70,9 @@ insert into _rec values
  ('e0000005-0000-0000-0000-000000000005','70000005-0000-0000-0000-000000000005','c0000005-0000-0000-0000-000000000005','2026-05-01',26000,26000),
  ('e0000005-0000-0000-0000-000000000005','70000005-0000-0000-0000-000000000005','c0000005-0000-0000-0000-000000000005','2026-06-01',26000,0);
 
+-- categoria 'FIS' (alinhado à função gerar_fis -> idempotência por contrato/mês)
 insert into public.cashflow (empresa_id, empreendimento_id, contrato_id, mes, tipo, categoria, descricao, previsto, realizado, origem)
-select '33333333-3333-3333-3333-333333333333', emp_id, cid, mes, 'receita', 'honorarios',
+select '33333333-3333-3333-3333-333333333333', emp_id, cid, mes, 'receita', 'FIS',
        'Honorários ' || to_char(mes,'MM/YYYY'), previsto, realizado, 'fis'
 from _rec;
 

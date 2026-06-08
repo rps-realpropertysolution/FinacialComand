@@ -84,9 +84,12 @@ export default function YTD() {
     const folha = zeros();
     (fpD ?? []).forEach(f => { folha[mesIdx(f.competencia)] += Number(f.custo_total ?? 0); });
 
-    // Encargos fiscais
+    // Impostos da empresa — exclui INSS/FGTS pois já estão dentro do custo_total
+    // da folha (senão os encargos seriam contados duas vezes no resultado).
     const fiscal = zeros();
-    (gfD ?? []).forEach(g => { fiscal[mesIdx(g.competencia)] += Number(g.valor ?? 0); });
+    (gfD ?? [])
+      .filter(g => g.categoria !== "inss" && g.categoria !== "fgts")
+      .forEach(g => { fiscal[mesIdx(g.competencia)] += Number(g.valor ?? 0); });
 
     const sumArr = (arrs: number[][]) => {
       const out = zeros();
@@ -111,7 +114,7 @@ export default function YTD() {
     linhasOut.push({ key:"backH", label:"DESPESAS BACKOFFICE (SEDE)", tipo:"total", valores: zeros(), destacar:true });
     linhasOut.push({ key:"back-folha", label:"Folha (CLT, encargos, benefícios)", tipo:"despesa", valores: folha, indent:true });
     linhasOut.push({ key:"back-fix", label:"Despesas operacionais (aluguel, utilities, etc.)", tipo:"despesa", valores: despSede, indent:true });
-    linhasOut.push({ key:"back-fis", label:"Encargos e impostos (INSS, FGTS, ISS, IRRF…)", tipo:"despesa", valores: fiscal, indent:true });
+    linhasOut.push({ key:"back-fis", label:"Impostos da empresa (ISS, DAS, IRRF…) — INSS/FGTS já na folha", tipo:"despesa", valores: fiscal, indent:true });
     linhasOut.push({ key:"backT", label:"Total backoffice", tipo:"total", valores: totalBackoffice });
 
     linhasOut.push({ key:"empH", label:"DESPESAS POR EMPREENDIMENTO", tipo:"total", valores: zeros(), destacar:true });
