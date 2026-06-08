@@ -9,6 +9,7 @@ import { AuthProvider } from "@/hooks/useAuth";
 import Auth from "@/pages/Auth";
 import RequireAuth from "@/components/app/RequireAuth";
 import AppLayout from "@/components/app/AppLayout";
+import ErrorBoundary from "@/components/app/ErrorBoundary";
 
 // Páginas carregadas sob demanda (code splitting) — bundle inicial menor.
 const PainelBI = lazy(() => import("@/pages/app/PainelBI"));
@@ -42,6 +43,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AuthProvider>
+          <ErrorBoundary>
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Navigate to="/app" replace />} />
@@ -67,6 +69,7 @@ const App = () => (
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
+          </ErrorBoundary>
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
