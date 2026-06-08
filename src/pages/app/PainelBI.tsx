@@ -118,7 +118,7 @@ export default function PainelBI() {
     <div className="space-y-6 animate-float-in">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-2xl font-bold text-executive">Painel BI Executivo</h2>
+          <h2 className="text-2xl font-bold text-executive">Painel Geral</h2>
           <p className="text-sm text-muted-foreground">
             Últimos 12 meses de cashflow consolidado por empreendimento.
           </p>

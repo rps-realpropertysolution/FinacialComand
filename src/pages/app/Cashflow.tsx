@@ -151,7 +151,7 @@ export default function Cashflow() {
     <div className="space-y-6 animate-float-in">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-2xl font-bold text-executive">Cashflow</h2>
+          <h2 className="text-2xl font-bold text-executive">Fluxo de Caixa</h2>
           <p className="text-sm text-muted-foreground">
             Lançamentos de receitas e despesas do mês.
           </p>

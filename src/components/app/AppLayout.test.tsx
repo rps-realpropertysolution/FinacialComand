@@ -23,12 +23,13 @@ describe("AppLayout (sidebar agrupada)", () => {
     );
     // grupos
     expect(screen.getByText("Visão Geral")).toBeInTheDocument();
-    expect(screen.getByText("Receitas")).toBeInTheDocument();
+    expect(screen.getByText("Receitas & Clientes")).toBeInTheDocument();
     expect(screen.getByText("Custos & Pessoas")).toBeInTheDocument();
-    // itens
-    expect(screen.getByText("Painel BI")).toBeInTheDocument();
-    expect(screen.getByText("Faturamentos")).toBeInTheDocument();
-    expect(screen.getByText("Emissor NFS-e")).toBeInTheDocument();
+    // itens (nomes intuitivos)
+    expect(screen.getByText("Painel Geral")).toBeInTheDocument();
+    expect(screen.getByText("Fluxo de Caixa")).toBeInTheDocument();
+    expect(screen.getByText("Acumulado do Ano")).toBeInTheDocument();
+    expect(screen.getByText("Emissor de Notas")).toBeInTheDocument();
     // conteúdo passado por children
     expect(screen.getByText("conteúdo")).toBeInTheDocument();
   });

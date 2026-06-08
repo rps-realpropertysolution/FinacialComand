@@ -154,7 +154,7 @@ export default function YTD() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold flex items-center gap-2"><LC className="h-6 w-6" /> YTD — Demonstrativo Linha a Linha</h1>
+          <h1 className="text-2xl font-bold flex items-center gap-2"><LC className="h-6 w-6" /> Acumulado do Ano — Demonstrativo Linha a Linha</h1>
           <p className="text-sm text-muted-foreground">Consolidado anual: receitas por CC, backoffice, empreendimentos e resultado</p>
         </div>
         <div className="flex gap-2 items-center">
@@ -174,7 +174,7 @@ export default function YTD() {
                   <TableRow>
                     <TableHead className="sticky left-0 bg-background min-w-[260px]">Linha</TableHead>
                     {MESES.map(m=><TableHead key={m} className="text-right">{m}</TableHead>)}
-                    <TableHead className="text-right font-bold">YTD</TableHead>
+                    <TableHead className="text-right font-bold">Acum. Ano</TableHead>
                     <TableHead className="text-right">% Rec.</TableHead>
                   </TableRow>
                 </TableHeader>

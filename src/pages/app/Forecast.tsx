@@ -290,7 +290,7 @@ export default function Forecast() {
     <div className="space-y-6 animate-float-in">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-executive">Forecast</h2>
+          <h2 className="text-2xl font-bold text-executive">Previsão Financeira</h2>
           <p className="text-sm text-muted-foreground">
             Projeção financeira consolidada com cenários, versionamento e comparativo previsto x realizado.
           </p>
@@ -317,7 +317,7 @@ export default function Forecast() {
                 </DialogTrigger>
                 <DialogContent className="max-w-2xl">
                   <DialogHeader>
-                    <DialogTitle>Nova versão de Forecast</DialogTitle>
+                    <DialogTitle>Nova versão de Previsão</DialogTitle>
                     <DialogDescription>
                       Gera linhas a partir de contratos ativos, despesas sede, folha vigente e média fiscal.
                     </DialogDescription>

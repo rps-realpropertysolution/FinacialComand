@@ -22,38 +22,38 @@ const NAV_GROUPS: NavGroup[] = [
   {
     label: "Visão Geral",
     items: [
-      { to: "/app", label: "Painel BI", icon: LineChart, end: true },
-      { to: "/app/ytd", label: "YTD", icon: TableProperties },
-      { to: "/app/forecast", label: "Forecast", icon: Activity },
+      { to: "/app", label: "Painel Geral", icon: LineChart, end: true },
+      { to: "/app/ytd", label: "Acumulado do Ano", icon: TableProperties },
+      { to: "/app/forecast", label: "Previsão", icon: Activity },
       { to: "/app/alertas", label: "Alertas", icon: TriangleAlert },
     ],
   },
   {
-    label: "Receitas",
+    label: "Receitas & Clientes",
     items: [
       { to: "/app/empreendimentos", label: "Empreendimentos", icon: Building2 },
       { to: "/app/contratos", label: "Contratos", icon: FileSignature },
-      { to: "/app/faturamentos", label: "Faturamentos", icon: FileText },
+      { to: "/app/faturamentos", label: "Faturamento", icon: FileText },
     ],
   },
   {
     label: "Caixa",
     items: [
-      { to: "/app/cashflow", label: "Cashflow", icon: Receipt },
-      { to: "/app/conciliacao", label: "Conciliação", icon: Banknote },
+      { to: "/app/cashflow", label: "Fluxo de Caixa", icon: Receipt },
+      { to: "/app/conciliacao", label: "Conciliação Bancária", icon: Banknote },
     ],
   },
   {
     label: "Custos & Pessoas",
     items: [
-      { to: "/app/despesas-sede", label: "Despesas Sede", icon: Building },
-      { to: "/app/rh", label: "RH", icon: Users },
-      { to: "/app/fiscal", label: "Fiscal", icon: Landmark },
+      { to: "/app/despesas-sede", label: "Despesas do Escritório", icon: Building },
+      { to: "/app/rh", label: "Equipe & Folha", icon: Users },
+      { to: "/app/fiscal", label: "Impostos & Guias", icon: Landmark },
     ],
   },
   {
     label: "Configurações",
-    items: [{ to: "/app/emissor", label: "Emissor NFS-e", icon: Settings2 }],
+    items: [{ to: "/app/emissor", label: "Emissor de Notas", icon: Settings2 }],
   },
 ];
 

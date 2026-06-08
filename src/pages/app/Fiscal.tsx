@@ -172,7 +172,7 @@ export default function Fiscal() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card><CardHeader className="pb-2"><CardDescription>Pendente</CardDescription><CardTitle className="text-2xl">{brl(totais.pendente)}</CardTitle></CardHeader></Card>
         <Card className="border-destructive/50"><CardHeader className="pb-2"><CardDescription className="flex items-center gap-1"><AlertTriangle className="h-3 w-3" /> Vencido</CardDescription><CardTitle className="text-2xl text-destructive">{brl(totais.vencido)}</CardTitle></CardHeader></Card>
-        <Card><CardHeader className="pb-2"><CardDescription>Pago YTD</CardDescription><CardTitle className="text-2xl text-emerald-600">{brl(totais.pago)}</CardTitle></CardHeader></Card>
+        <Card><CardHeader className="pb-2"><CardDescription>Pago no Ano</CardDescription><CardTitle className="text-2xl text-emerald-600">{brl(totais.pago)}</CardTitle></CardHeader></Card>
       </div>
 
       <Card>
