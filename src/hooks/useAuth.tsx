@@ -22,6 +22,7 @@ interface AuthContextValue {
   profile: Profile | null;
   empresa: Empresa | null;
   loading: boolean;
+  profileLoading: boolean;
   refresh: () => Promise<void>;
   signOut: () => Promise<void>;
 }
@@ -34,23 +35,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [empresa, setEmpresa] = useState<Empresa | null>(null);
   const [loading, setLoading] = useState(true);
+  // true enquanto o perfil está sendo carregado após autenticar (evita que o
+  // RequireAuth chute para /auth antes do profile chegar — bug do "clicar 2x").
+  const [profileLoading, setProfileLoading] = useState(false);
 
   const loadProfile = async (uid: string) => {
-    const { data: prof } = await supabase
-      .from("profiles")
-      .select("*")
-      .eq("id", uid)
-      .maybeSingle();
-    setProfile((prof as Profile) ?? null);
-    if (prof?.empresa_id) {
-      const { data: emp } = await supabase
-        .from("empresas")
+    setProfileLoading(true);
+    try {
+      const { data: prof } = await supabase
+        .from("profiles")
         .select("*")
-        .eq("id", prof.empresa_id)
+        .eq("id", uid)
         .maybeSingle();
-      setEmpresa((emp as Empresa) ?? null);
-    } else {
-      setEmpresa(null);
+      setProfile((prof as Profile) ?? null);
+      if (prof?.empresa_id) {
+        const { data: emp } = await supabase
+          .from("empresas")
+          .select("*")
+          .eq("id", prof.empresa_id)
+          .maybeSingle();
+        setEmpresa((emp as Empresa) ?? null);
+      } else {
+        setEmpresa(null);
+      }
+    } finally {
+      setProfileLoading(false);
     }
   };
 
@@ -59,10 +68,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setSession(sess);
       setUser(sess?.user ?? null);
       if (sess?.user) {
+        setProfileLoading(true); // marca já, antes do loadProfile assíncrono
         setTimeout(() => loadProfile(sess.user.id), 0);
       } else {
         setProfile(null);
         setEmpresa(null);
+        setProfileLoading(false);
       }
     });
 
@@ -88,7 +99,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ session, user, profile, empresa, loading, refresh, signOut }}>
+    <AuthContext.Provider value={{ session, user, profile, empresa, loading, profileLoading, refresh, signOut }}>
       {children}
     </AuthContext.Provider>
   );
